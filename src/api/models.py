@@ -54,6 +54,8 @@ class Account_details(db.Model):
     amount: Mapped[int] = mapped_column(String(120), unique=True, nullable=False)
     coin: Mapped[int] = mapped_column(String(120), unique=True, nullable=False)
     type: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    date: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    time: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     
     def serialize(self):
         return {
@@ -62,5 +64,7 @@ class Account_details(db.Model):
             "detail": self.detail,
             "amount": self.amount,
             "coin": self.coin,
-            "type": self.type
+            "type": self.type,
+            "date": self.date,
+            "time": self.time,
         }   
