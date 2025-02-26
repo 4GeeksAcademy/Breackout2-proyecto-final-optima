@@ -2,6 +2,7 @@ from typing import List
 from sqlalchemy.orm import declarative_base, Mapped, mapped_column, relationship
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, create_engine, ForeignKey
+
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -9,7 +10,7 @@ class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(80),nullable=False)
-    firts_name: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    first_name: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     last_name: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     birthdate: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     country: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
@@ -19,7 +20,7 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
-            "firts_name": self.firts_name,
+            "firts_name": self.first_name,
             "last_name": self.last_name,
             "birthdate": self.birthdate,
             "country": self.country,
@@ -31,8 +32,8 @@ class Accounts(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     name: Mapped[str] = mapped_column(String(80),nullable=False)
-    balance: Mapped[int] = mapped_column(String(120), unique=True, nullable=False)
-    coin: Mapped[int] = mapped_column(String(120), unique=True, nullable=False)
+    balance: Mapped[int] = mapped_column(unique=True, nullable=False)
+    coin: Mapped[int] = mapped_column(unique=True, nullable=False)
     type: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     accounts: Mapped[List["Account_details"]] = relationship()
 
@@ -51,7 +52,7 @@ class Account_details(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     accounts_id: Mapped[int] = mapped_column(ForeignKey("accounts.id"))
     detail: Mapped[str] = mapped_column(String(80),nullable=False)
-    amount: Mapped[int] = mapped_column(String(120), unique=True, nullable=False)
+    amount: Mapped[int] = mapped_column(unique=True, nullable=False)
     coin: Mapped[int] = mapped_column(String(120), unique=True, nullable=False)
     type: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     date: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
